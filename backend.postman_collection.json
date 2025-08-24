@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "80e01e86-c7b4-4814-af50-fbc31c60ce5b",
+		"name": "backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38089669"
+	},
+	"item": [
+		{
+			"name": "profile get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"account\": \"Johndoe@example.com\",\r\n  \"birthDate\": \"1980-05-25\",\r\n  \"gender\": \"Male\",\r\n  \"avatar\": \"avatar-url.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dashboard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/dashboard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dashboard get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/dashboard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "body insight post",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Random float between min and max, rounded to decimals\r",
+							"function randomFloat(min, max, decimals = 1) {\r",
+							"  return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));\r",
+							"}\r",
+							"\r",
+							"// Random integer between min and max\r",
+							"function randomInt(min, max) {\r",
+							"  return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"// Random race time string in mm:ss format (e.g., 40:30)\r",
+							"function randomRaceTime() {\r",
+							"  const minutes = randomInt(30, 50);\r",
+							"  const seconds = randomInt(0, 59);\r",
+							"  return `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;\r",
+							"}\r",
+							"\r",
+							"pm.variables.set(\"randomVO2\", randomFloat(40, 60));\r",
+							"pm.variables.set(\"randomLactate\", randomFloat(3, 5));\r",
+							"pm.variables.set(\"randomRaceTime\", randomRaceTime());\r",
+							"pm.variables.set(\"randomStamina\", randomInt(60, 100));\r",
+							"pm.variables.set(\"randomFTP\", randomInt(200, 350));\r",
+							"pm.variables.set(\"randomPowerToWeight\", randomFloat(2.5, 4.5, 2));\r",
+							"pm.variables.set(\"randomCriticalPower\", randomInt(200, 350));\r",
+							"pm.variables.set(\"randomThresholdHR\", randomInt(140, 180));\r",
+							"pm.variables.set(\"randomPerformanceIndex\", randomInt(70, 100));\r",
+							"pm.variables.set(\"randomFatigueIndex\", randomInt(5, 20));\r",
+							"pm.variables.set(\"randomPeakPower5s\", randomInt(400, 800));\r",
+							"pm.variables.set(\"randomPeakPower1min\", randomInt(300, 600));\r",
+							"pm.variables.set(\"randomPeakPower5min\", randomInt(250, 450));\r",
+							"pm.variables.set(\"randomPeakPower20min\", randomInt(200, 400));\r",
+							"pm.variables.set(\"randomHeatAcclimation\", randomInt(50, 90));\r",
+							"pm.variables.set(\"randomAltitudeAcclimation\", randomInt(40, 80));\r",
+							"pm.variables.set(\"randomTrainingReadiness\", randomInt(70, 100));\r",
+							"pm.variables.set(\"randomEnduranceScore\", randomInt(70, 90));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": 1,\r\n  \"vo2_max\": {{randomVO2}},\r\n  \"lactate_threshold\": {{randomLactate}},\r\n  \"race_time_prediction\": \"{{randomRaceTime}}\",\r\n  \"real_time_stamina\": {{randomStamina}},\r\n  \"functional_threshold_power\": {{randomFTP}},\r\n  \"power_to_weight_ratio\": {{randomPowerToWeight}},\r\n  \"critical_power\": {{randomCriticalPower}},\r\n  \"threshold_heart_rate\": {{randomThresholdHR}},\r\n  \"performance_index\": {{randomPerformanceIndex}},\r\n  \"fatigue_index\": {{randomFatigueIndex}},\r\n  \"peak_power_5s\": {{randomPeakPower5s}},\r\n  \"peak_power_1min\": {{randomPeakPower1min}},\r\n  \"peak_power_5min\": {{randomPeakPower5min}},\r\n  \"peak_power_20min\": {{randomPeakPower20min}},\r\n  \"heat_acclimation\": {{randomHeatAcclimation}},\r\n  \"altitude_acclimation\": {{randomAltitudeAcclimation}},\r\n  \"training_readiness\": {{randomTrainingReadiness}},\r\n  \"endurance_score\": {{randomEnduranceScore}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/body_insight",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"body_insight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve body for specific activity",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/body_insight/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"body_insight",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve body insight for latest activity",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/body_insight/latest",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"body_insight",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activity post",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Random float between min and max, rounded to decimals\r",
+							"function randomFloat(min, max, decimals = 1) {\r",
+							"  return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));\r",
+							"}\r",
+							"\r",
+							"// Random integer between min and max\r",
+							"function randomInt(min, max) {\r",
+							"  return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"// Random race time string in mm:ss format (e.g., 40:30)\r",
+							"function randomRaceTime() {\r",
+							"  const minutes = randomInt(30, 50);\r",
+							"  const seconds = randomInt(0, 59);\r",
+							"  return `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;\r",
+							"}\r",
+							"\r",
+							"// Generate current ISO datetime without milliseconds\r",
+							"function formatISODate(date) {\r",
+							"  const pad = (num) => num.toString().padStart(2, '0');\r",
+							"  return date.getFullYear() + '-' +\r",
+							"    pad(date.getMonth() + 1) + '-' +\r",
+							"    pad(date.getDate()) + 'T' +\r",
+							"    pad(date.getHours()) + ':' +\r",
+							"    pad(date.getMinutes()) + ':' +\r",
+							"    pad(date.getSeconds());\r",
+							"}\r",
+							"\r",
+							"const now = new Date();\r",
+							"const beginTime = formatISODate(now);\r",
+							"const endTime = formatISODate(new Date(now.getTime() + 60*60*1000)); // +1 hour\r",
+							"\r",
+							"pm.variables.set(\"begin_time\", beginTime);\r",
+							"pm.variables.set(\"end_time\", endTime);\r",
+							"pm.variables.set(\"duration\", \"01:00:00\");\r",
+							"pm.variables.set(\"moving_duration\", \"00:55:00\");\r",
+							"\r",
+							"pm.variables.set(\"randomAverageSpeed\", randomFloat(8, 12));\r",
+							"pm.variables.set(\"randomMaxSpeed\", randomFloat(12, 15));\r",
+							"pm.variables.set(\"randomAverageHeartRate\", randomInt(130, 160));\r",
+							"pm.variables.set(\"randomMaxHeartRate\", randomInt(160, 180));\r",
+							"pm.variables.set(\"randomCalories\", randomInt(400, 700));\r",
+							"pm.variables.set(\"randomAverageMovingSpeed\", randomFloat(9, 14));\r",
+							"pm.variables.set(\"randomDistance\", randomFloat(8, 12));\r",
+							"pm.variables.set(\"randomElevationGain\", randomInt(20, 150));\r",
+							"pm.variables.set(\"randomElevationLoss\", randomInt(10, 150));\r",
+							"pm.variables.set(\"randomMaxElevation\", randomInt(100, 200));\r",
+							"pm.variables.set(\"randomMinElevation\", randomInt(0, 50));\r",
+							"\r",
+							"const coachNames = [\"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Ethan\", \"Fiona\", \"George\", \"Hannah\", \"Ian\", \"Julia\", \"Kevin\", \"Laura\"];\r",
+							"pm.variables.set(\"randomCoach\", coachNames[randomInt(0, coachNames.length - 1)]);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": 1,\r\n  \"begin_time\": \"{{begin_time}}\",\r\n  \"end_time\": \"{{end_time}}\",\r\n  \"activity_type\": \"running\",\r\n  \"coach\": \"{{randomCoach}}\",\r\n  \"average_speed\": {{randomAverageSpeed}},\r\n  \"max_speed\": {{randomMaxSpeed}},\r\n  \"average_heart_rate\": {{randomAverageHeartRate}},\r\n  \"max_heart_rate\": {{randomMaxHeartRate}},\r\n  \"calories\": {{randomCalories}},\r\n  \"duration\": \"{{duration}}\",\r\n  \"moving_duration\": \"{{moving_duration}}\",\r\n  \"average_moving_speed\": {{randomAverageMovingSpeed}},\r\n  \"distance\": {{randomDistance}},\r\n  \"elevation_gain\": {{randomElevationGain}},\r\n  \"elevation_loss\": {{randomElevationLoss}},\r\n  \"max_elevation\": {{randomMaxElevation}},\r\n  \"min_elevation\": {{randomMinElevation}},\r\n  \"time_series\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/activity",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activity post Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Random float between min and max, rounded to decimals\r",
+							"function randomFloat(min, max, decimals = 1) {\r",
+							"  return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));\r",
+							"}\r",
+							"\r",
+							"// Random integer between min and max\r",
+							"function randomInt(min, max) {\r",
+							"  return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+							"}\r",
+							"\r",
+							"// Random race time string in mm:ss format (e.g., 40:30)\r",
+							"function randomRaceTime() {\r",
+							"  const minutes = randomInt(30, 50);\r",
+							"  const seconds = randomInt(0, 59);\r",
+							"  return `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;\r",
+							"}\r",
+							"\r",
+							"// Generate current ISO datetime without milliseconds\r",
+							"function formatISODate(date) {\r",
+							"  const pad = (num) => num.toString().padStart(2, '0');\r",
+							"  return date.getFullYear() + '-' +\r",
+							"    pad(date.getMonth() + 1) + '-' +\r",
+							"    pad(date.getDate()) + 'T' +\r",
+							"    pad(date.getHours()) + ':' +\r",
+							"    pad(date.getMinutes()) + ':' +\r",
+							"    pad(date.getSeconds());\r",
+							"}\r",
+							"\r",
+							"const now = new Date();\r",
+							"const beginTime = formatISODate(now);\r",
+							"const endTime = formatISODate(new Date(now.getTime() + 60*60*1000)); // +1 hour\r",
+							"\r",
+							"pm.variables.set(\"begin_time\", beginTime);\r",
+							"pm.variables.set(\"end_time\", endTime);\r",
+							"pm.variables.set(\"duration\", \"01:00:00\");\r",
+							"pm.variables.set(\"moving_duration\", \"00:55:00\");\r",
+							"\r",
+							"pm.variables.set(\"randomAverageSpeed\", randomFloat(8, 12));\r",
+							"pm.variables.set(\"randomMaxSpeed\", randomFloat(12, 15));\r",
+							"pm.variables.set(\"randomAverageHeartRate\", randomInt(130, 160));\r",
+							"pm.variables.set(\"randomMaxHeartRate\", randomInt(160, 180));\r",
+							"pm.variables.set(\"randomCalories\", randomInt(400, 700));\r",
+							"pm.variables.set(\"randomAverageMovingSpeed\", randomFloat(9, 14));\r",
+							"pm.variables.set(\"randomDistance\", randomFloat(8, 12));\r",
+							"pm.variables.set(\"randomElevationGain\", randomInt(20, 150));\r",
+							"pm.variables.set(\"randomElevationLoss\", randomInt(10, 150));\r",
+							"pm.variables.set(\"randomMaxElevation\", randomInt(100, 200));\r",
+							"pm.variables.set(\"randomMinElevation\", randomInt(0, 50));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": 1,\r\n  \"begin_time\": \"{{begin_time}}\",\r\n  \"end_time\": \"{{end_time}}\",\r\n  \"activity_type\": \"running\",\r\n  \"average_speed\": {{randomAverageSpeed}},\r\n  \"max_speed\": {{randomMaxSpeed}},\r\n  \"average_heart_rate\": {{randomAverageHeartRate}},\r\n  \"max_heart_rate\": {{randomMaxHeartRate}},\r\n  \"calories\": {{randomCalories}},\r\n  \"duration\": \"{{duration}}\",\r\n  \"moving_duration\": \"{{moving_duration}}\",\r\n  \"average_moving_speed\": {{randomAverageMovingSpeed}},\r\n  \"distance\": {{randomDistance}},\r\n  \"elevation_gain\": {{randomElevationGain}},\r\n  \"elevation_loss\": {{randomElevationLoss}},\r\n  \"max_elevation\": {{randomMaxElevation}},\r\n  \"min_elevation\": {{randomMinElevation}},\r\n  \"time_series\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/activity",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
